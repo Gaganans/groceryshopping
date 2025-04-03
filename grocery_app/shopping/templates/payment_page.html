@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% extends 'base.html' %}
+{% block title %}Payment{% endblock %}
+{% block content %}
+    <h2>Payment Summary</h2>
+    <p>Total Cost: ${{ total_cost|floatformat:2 }}</p>
+    <ul>
+        {% for item in items %}
+            <li>{{ item.name }} - {{ item.quantity }} x ${{ item.price|floatformat:2 }} = ${{ item.total_cost|floatformat:2 }}</li>
+        {% empty %}
+            <li>No purchased items to pay for.</li>
+        {% endfor %}
+    </ul>
+    {% if total_cost > 0 %}
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit" name="create_payment">Pay with PayPal</button>
+        </form>
+    {% endif %}
+    <a href="{% url 'grocery_list' %}">Back to List</a>
+{% endblock %}
+</body>
+</html>

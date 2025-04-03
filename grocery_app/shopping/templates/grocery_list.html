@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grocery List</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        h1 { color: #333; }
+        ul { list-style-type: none; padding: 0; }
+        li { padding: 10px; background: #f4f4f4; margin: 5px 0; border-radius: 5px; }
+        form { margin-top: 20px; }
+        input { padding: 8px; margin-right: 10px; }
+        button { padding: 8px 15px; background: #74ebd5; border: none; border-radius: 5px; color: white; }
+    </style>
+</head>
+<body>
+    {% extends 'base.html' %}
+    {% block title %}Grocery List{% endblock %}
+    {% block content %}
+        <h2>Your Grocery List</h2>
+        <p>Total Items: {{ items.count }}</p>
+        <p>Total Cost of Purchased Items: ${{ total_cost|floatformat:2 }}</p>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" name="add">Add Item</button>
+        </form>
+        <ul>
+            {% for item in items %}
+                <li class="{% if item.purchased %}purchased{% endif %}">
+                    {{ item.name }} - {{ item.quantity }} x ${{ item.price|floatformat:2 }} = ${{ item.total_cost|floatformat:2 }}
+                    <form method="POST" style="display:inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="item_id" value="{{ item.id }}">
+                        <button type="submit" name="toggle">
+                            {% if item.purchased %}Unmark{% else %}Mark Purchased{% endif %}
+                        </button>
+                        <a href="{% url 'edit_item' item.id %}">Edit</a>
+                        <button type="submit" name="delete">Delete</button>
+                    </form>
+                </li>
+            {% empty %}
+                <li>No items yet!</li>
+            {% endfor %}
+        </ul>
+        {% if total_cost > 0 %}
+            <a href="{% url 'payment_page' %}" class="btn">Proceed to Payment</a>
+        {% endif %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="success">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+{% endblock %}
+</body>
+</html>

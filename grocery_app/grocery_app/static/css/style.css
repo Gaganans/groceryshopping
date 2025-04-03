@@ -1,0 +1,104 @@
+/* Reset and Base Styles */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: Arial, sans-serif;
+    background: #f0f4f8;
+    color: #333;
+}
+
+/* Header */
+header {
+    background: #74ebd5;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+header h1 { color: white; }
+header a { color: white; text-decoration: none; }
+
+/* Login/Register Container */
+.login-container {
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    margin: 50px auto;
+    text-align: center;
+    animation: fadeIn 0.5s ease-in;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+input, button {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 25px;
+    font-size: 16px;
+}
+input { border: 1px solid #ddd; }
+button {
+    background: #74ebd5;
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+button:hover { background: #acb6e5; }
+.error { color: red; font-size: 14px; }
+.register-link { margin-top: 20px; }
+.register-link a { color: #74ebd5; }
+
+/* Grocery List */
+main { padding: 20px; }
+h2 { margin-bottom: 20px; }
+form p { margin: 10px 0; }
+ul { list-style-type: none; }
+li {
+    padding: 10px;
+    background: white;
+    margin: 5px 0;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.purchased { text-decoration: line-through; color: #888; }
+li button, li a {
+    margin-left: 10px;
+    padding: 5px 10px;
+    background: #acb6e5;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .login-container { padding: 20px; }
+    li { flex-direction: column; align-items: flex-start; }
+    li button, li a { margin: 5px 0; }
+}
+
+/* Add to existing CSS */
+.success { color: green; font-size: 16px; margin: 10px 0; }
+button[name="pay"] {
+    background: #ff6f61;
+    padding: 12px 20px;
+    font-size: 16px;
+}
+button[name="pay"]:hover { background: #e65b50; }
+
+.btn {
+    display: inline-block;
+    padding: 12px 20px;
+    background: #ff6f61;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+.btn:hover { background: #e65b50; }

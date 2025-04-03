@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Grocery App</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}"> <!-- Reuse login CSS -->
+</head>
+<body>
+    {% extends 'base.html' %}
+    {% block title %}Register{% endblock %}
+    {% block content %}
+        <div class="login-container">
+            {% if messages %}
+            {% for message in messages %}
+                <div class="error">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Register</button>
+        </form>
+        <div class="register-link">
+            Already have an account? <a href="{% url 'login' %}">Login here</a>
+        </div>
+    </div>
+{% endblock %}
+</body>
+</html>
